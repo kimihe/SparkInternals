@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SparkWordCount-Scala2.11.11:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/SparkWordCount_Scala2_11_11_jar</output-path>
+    <root id="archive" name="SparkWordCount-Scala2.11.11.jar">
+      <element id="module-output" name="SparkWordCount-Scala2.11.11" />
+    </root>
+  </artifact>
+</component>
