@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="For_Source_Codes_Test_SparkWordCount-IDEA-idea-Scala2_11_11:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/For_Source_Codes_Test_SparkWordCount_IDEA_idea_Scala2_11_11_jar</output-path>
+    <root id="archive" name="For_Source_Codes_Test_SparkWordCount-IDEA-idea-Scala2_11_11.jar">
+      <element id="module-output" name="For_Source_Codes_Test_SparkWordCount-IDEA-idea-Scala2_11_11" />
+    </root>
+  </artifact>
+</component>

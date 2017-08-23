@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="for_source_codes_reading_sparkwordcount-idea-sbt-scala2_11_11:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/for_source_codes_reading_sparkwordcount_idea_sbt_scala2_11_11_jar</output-path>
+    <root id="archive" name="for_source_codes_reading_sparkwordcount-idea-sbt-scala2_11_11.jar">
+      <element id="module-output" name="for_source_codes_reading_sparkwordcount-idea-sbt-scala2_11_11" />
+    </root>
+  </artifact>
+</component>
