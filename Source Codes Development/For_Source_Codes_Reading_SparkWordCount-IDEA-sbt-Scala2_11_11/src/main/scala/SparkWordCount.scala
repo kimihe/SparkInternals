@@ -4,9 +4,13 @@
 
 import org.apache.spark._
 import org.apache.spark.SparkContext._
+import org.apache.log4j.Logger._
+import org.slf4j.Logger
 
 object SparkWordCount {
   def main(args: Array[String]): Unit = {
+
+    //    val log: Logger = Logger.
     val inputFile =  "./helloInput"
     val outputFile = "./helloOutput"
 
