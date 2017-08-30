@@ -19,12 +19,23 @@
       <sourceFolder url="file://$MODULE_DIR$/../../target/scala-2.11/resource_managed/test" type="java-test-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../../target" />
     </content>
-    <content url="file://$MODULE_DIR$/../../../spark-2.2.0-bin-hadoop2.7/conf">
-      <sourceFolder url="file://$MODULE_DIR$/../../../spark-2.2.0-bin-hadoop2.7/conf" isTestSource="false" />
-    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="SBT: org.scala-lang:scala-library:2.11.11:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.codehaus.janino:janino:3.0.0:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.codehaus.janino:commons-compiler:3.0.0:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.apache.spark:spark-sql_2.11:2.2.0:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.apache.spark:spark-sketch_2.11:2.2.0:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.apache.spark:spark-catalyst_2.11:2.2.0:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.apache.parquet:parquet-jackson:1.8.2:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.apache.parquet:parquet-hadoop:1.8.2:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.apache.parquet:parquet-format:2.3.1:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.apache.parquet:parquet-encoding:1.8.2:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.apache.parquet:parquet-common:1.8.2:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.apache.parquet:parquet-column:1.8.2:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.antlr:antlr4-runtime:4.5.3:jar" level="project" />
+    <orderEntry type="library" name="SBT: commons-codec:commons-codec:1.10:jar" level="project" />
+    <orderEntry type="library" name="SBT: com.univocity:univocity-parsers:2.2.1:jar" level="project" />
     <orderEntry type="library" name="SBT: aopalliance:aopalliance:1.0:jar" level="project" />
     <orderEntry type="library" name="SBT: com.clearspring.analytics:stream:2.7.0:jar" level="project" />
     <orderEntry type="library" name="SBT: com.esotericsoftware:kryo-shaded:3.0.3:jar" level="project" />
@@ -47,7 +58,6 @@
     <orderEntry type="library" name="SBT: commons-beanutils:commons-beanutils:1.7.0:jar" level="project" />
     <orderEntry type="library" name="SBT: commons-beanutils:commons-beanutils-core:1.8.0:jar" level="project" />
     <orderEntry type="library" name="SBT: commons-cli:commons-cli:1.2:jar" level="project" />
-    <orderEntry type="library" name="SBT: commons-codec:commons-codec:1.8:jar" level="project" />
     <orderEntry type="library" name="SBT: commons-collections:commons-collections:3.2.2:jar" level="project" />
     <orderEntry type="library" name="SBT: commons-configuration:commons-configuration:1.6:jar" level="project" />
     <orderEntry type="library" name="SBT: commons-digester:commons-digester:1.8:jar" level="project" />

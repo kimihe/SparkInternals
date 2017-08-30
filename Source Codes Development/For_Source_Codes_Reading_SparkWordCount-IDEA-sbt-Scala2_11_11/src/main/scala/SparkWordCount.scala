@@ -5,6 +5,7 @@
 import org.apache.spark._
 import org.apache.spark.SparkContext._
 import org.apache.log4j.Logger._
+import org.apache.spark.network.buffer.NettyManagedBuffer
 import org.slf4j.Logger
 
 object SparkWordCount {
