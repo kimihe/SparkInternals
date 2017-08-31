@@ -4,6 +4,7 @@
 
 // scalastyle:off println
 
+import org.apache.spark.SparkConf
 import org.apache.spark.sql.SparkSession
 
 /**
@@ -12,12 +13,21 @@ import org.apache.spark.sql.SparkSession
 object SparkBroadcastTest {
   def main(args: Array[String]) {
 
+    println("************************ Step0: new SparkConf() begin ************************")
+    //    val conf = new SparkConf().setMaster("local").setAppName("wordCount")
+    val conf = new SparkConf().setAppName("SparkWordCount").setMaster("spark://zhouqihuadeMacBook-Pro.local:7077")
+      .setJars(List("/Users/zhouqihua/Desktop/For_Source_Codes_Reading_SparkWordCount-IDEA-sbt-Scala2_11_11/out/artifacts/for_source_codes_reading_sparkwordcount_idea_sbt_scala2_11_11_jar/for_source_codes_reading_sparkwordcount-idea-sbt-scala2_11_11.jar"))
+    //.set("spark.executor.extraJavaOptions", "-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005")
+    println("************************ Step0: new SparkConf() end ************************")
+
+
     val blockSize = if (args.length > 2) args(2) else "4096"
 
     val spark = SparkSession
       .builder()
-      .appName("Broadcast Test")
+      .appName("SparkBroadcastTest")
       .config("spark.broadcast.blockSize", blockSize)
+      .config(conf)
       .getOrCreate()
 
     val sc = spark.sparkContext
