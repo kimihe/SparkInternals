@@ -19,6 +19,9 @@
       <sourceFolder url="file://$MODULE_DIR$/../../target/scala-2.11/resource_managed/test" type="java-test-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../../target" />
     </content>
+    <content url="file://$MODULE_DIR$/../../../spark-2.2.0-bin-hadoop2.7/conf">
+      <sourceFolder url="file://$MODULE_DIR$/../../../spark-2.2.0-bin-hadoop2.7/conf" isTestSource="false" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="SBT: org.scala-lang:scala-library:2.11.11:jar" level="project" />
