@@ -4,7 +4,7 @@
 		module="for_source_codes_reading_sparkwordcount-idea-sbt-scala2_11_11$sources_2.11"
 		revision="0.1"
 		status="integration"
-		publication="20170830203656"
+		publication="20170907133638"
 	/>
 	<configurations>
 		<conf name="compile" visibility="public" description=""/>
