@@ -20,7 +20,7 @@ package org.apache.spark.serializer
 import java.io.{BufferedInputStream, BufferedOutputStream, InputStream, OutputStream}
 import java.nio.ByteBuffer
 
-import org.apache.spark.KMSwallow.KMScalaKit
+import org.apache.spark.KMSwallow.{KMScalaKit, KMSwitch}
 
 import scala.reflect.ClassTag
 import org.apache.spark.SparkConf
@@ -61,8 +61,11 @@ private[spark] class SerializerManager(
 
   // Whether to compress broadcast variables that are stored
   private[this] val compressBroadcast = conf.getBoolean("spark.broadcast.compress", true)
+  
   // Whether to compress shuffle output that are stored
-  private[this] val compressShuffle = conf.getBoolean("spark.shuffle.compress", true)
+  private[this] val compressShuffle = conf.getBoolean("spark.shuffle.compress", true) //false //KMSwitch.compressShuffle //
+  println(s"compressShuffle => [spark.shuffle.compress : ${this.compressShuffle}]")
+
   // Whether to compress RDD partitions that are stored serialized
   private[this] val compressRdds = conf.getBoolean("spark.rdd.compress", false)
   // Whether to compress shuffle output temporarily spilled to disk
@@ -73,7 +76,8 @@ private[spark] class SerializerManager(
    * program could be using a user-defined codec in a third party jar, which is loaded in
    * Executor.updateDependencies. When the BlockManager is initialized, user level jars hasn't been
    * loaded yet. */
-  private lazy val compressionCodec: CompressionCodec = CompressionCodec.createCodec(conf)
+//  private lazy val compressionCodec: CompressionCodec = CompressionCodec.createCodec(conf)
+  private val compressionCodec: CompressionCodec = CompressionCodec.createCodec(conf)
 
   def encryptionEnabled: Boolean = encryptionKey.isDefined
 
@@ -104,6 +108,7 @@ private[spark] class SerializerManager(
   }
 
   private def shouldCompress(blockId: BlockId): Boolean = {
+    //return true
     blockId match {
       case _: ShuffleBlockId => compressShuffle
       case _: BroadcastBlockId => compressBroadcast
@@ -111,6 +116,22 @@ private[spark] class SerializerManager(
       case _: TempLocalBlockId => compressShuffleSpill
       case _: TempShuffleBlockId => compressShuffle
       case _ => false
+    }
+  }
+
+  private def shouldSmartCompress(blockId: BlockId): Boolean = {
+    if (blockId.isShuffle) {
+//      if (!blockId.name.isEmpty()) {
+//
+//      }
+      val flag: Boolean  = conf.getBoolean("spark.smartCompress", true)
+      KMScalaKit.KMLogInfo(s"Get into method: [shouldSmartCompress]\n" +
+        s"flag: ${flag}\n")
+      return flag
+    }
+    else {
+      val flag: Boolean = shouldCompress(blockId)
+      return flag
     }
   }
 
@@ -151,7 +172,26 @@ private[spark] class SerializerManager(
    */
   def wrapForCompression(blockId: BlockId, s: OutputStream): OutputStream = {
     KMScalaKit.KMLogInfo(s"Get into methods: [wrapForCompression(blockId: BlockId, s: OutputStream): OutputStream]")
-    if (shouldCompress(blockId)) compressionCodec.compressedOutputStream(s) else s
+    //if (shouldCompress(blockId)) compressionCodec.compressedOutputStream(s) else s
+
+    if (shouldSmartCompress(blockId)) {
+      println("OutputStream Compression is true")
+      KMScalaKit.KMLogInfo(s"Compression is true\n" +
+        s"compressShuffle     : ${this.compressShuffle}\n" +
+        s"compressBroadcast   : ${this.compressBroadcast}\n" +
+        s"compressRdds        : ${this.compressRdds}\n" +
+        s"compressShuffleSpill: ${this.compressShuffleSpill}\n")
+      return compressionCodec.compressedOutputStream(s)
+    }
+    else {
+      println("OutputStream Compression is false")
+      KMScalaKit.KMLogInfo(s"Compression is false\n" +
+        s"compressShuffle     : ${this.compressShuffle}\n" +
+        s"compressBroadcast   : ${this.compressBroadcast}\n" +
+        s"compressRdds        : ${this.compressRdds}\n" +
+        s"compressShuffleSpill: ${this.compressShuffleSpill}\n")
+      return s
+    }
   }
 
   /**
@@ -159,7 +199,26 @@ private[spark] class SerializerManager(
    */
   def wrapForCompression(blockId: BlockId, s: InputStream): InputStream = {
     KMScalaKit.KMLogInfo(s"Get into methods: [wrapForCompression(blockId: BlockId, s: InputStream): InputStream]")
-    if (shouldCompress(blockId)) compressionCodec.compressedInputStream(s) else s
+    //if (shouldCompress(blockId)) compressionCodec.compressedInputStream(s) else s
+
+    if (shouldSmartCompress(blockId)) {
+      println("InputStream Compression is true")
+      KMScalaKit.KMLogInfo(s"Compression is true\n" +
+        s"compressShuffle     : ${this.compressShuffle}\n" +
+        s"compressBroadcast   : ${this.compressBroadcast}\n" +
+        s"compressRdds        : ${this.compressRdds}\n" +
+        s"compressShuffleSpill: ${this.compressShuffleSpill}\n")
+      return compressionCodec.compressedInputStream(s)
+    }
+    else {
+      println("InputStream Compression is false")
+      KMScalaKit.KMLogInfo(s"Compression is false\n" +
+        s"compressShuffle     : ${this.compressShuffle}\n" +
+        s"compressBroadcast   : ${this.compressBroadcast}\n" +
+        s"compressRdds        : ${this.compressRdds}\n" +
+        s"compressShuffleSpill: ${this.compressShuffleSpill}\n")
+      return s
+    }
   }
 
   /** Serializes into a stream. */

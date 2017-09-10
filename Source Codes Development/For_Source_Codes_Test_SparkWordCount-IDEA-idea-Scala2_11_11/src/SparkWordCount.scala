@@ -4,9 +4,20 @@
 
 import java.io.File
 import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.KMSwallow.KMSwitch
+
 
 object SparkWordCount {
   def main(args: Array[String]): Unit = {
+
+//    KMTest.flag = false
+//    println(s"KMTest.flag : ${KMTest.flag}")
+//    if (KMTest.flag)
+//      println("if")
+//    else
+//      println("else")
+//    return
+
 
     //    val log: Logger = Logger.
     val inputFile =  "./helloInput"
@@ -16,15 +27,21 @@ object SparkWordCount {
     if (outputPath.exists())
       deleteDir(outputPath)
 
-
+//    KMSwitch.description()
+//    println(s"KMSwitch.compressShuffle : ${KMSwitch.compressShuffle}")
+//    KMSwitch.compressShuffle = false
+//    KMSwitch.description()
+//    println(s"KMSwitch.compressShuffle : ${KMSwitch.compressShuffle}")
+//    Thread.sleep(3000)
 
 
     println("************************ Step0: new SparkConf() begin ************************")
     //    val conf = new SparkConf().setMaster("local").setAppName("wordCount")
     val conf = new SparkConf().setAppName("SparkWordCount").setMaster("spark://zhouqihuadeMacBook-Pro.local:7077")
       .setJars(List("/Users/zhouqihua/Desktop/For_Source_Codes_Reading_SparkWordCount-IDEA-sbt-Scala2_11_11/out/artifacts/for_source_codes_reading_sparkwordcount_idea_sbt_scala2_11_11_jar/for_source_codes_reading_sparkwordcount-idea-sbt-scala2_11_11.jar"))
-      .set("spark.shuffle.compress", "true")
+      .set("spark.shuffle.compress", "false")
       .set("spark.io.compression.codec", "org.apache.spark.io.LZ4CompressionCodec")
+      .set("spark.smartCompress", "true")
     //.set("spark.executor.extraJavaOptions", "-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005")
     println("************************ Step0: new SparkConf() end ************************")
 

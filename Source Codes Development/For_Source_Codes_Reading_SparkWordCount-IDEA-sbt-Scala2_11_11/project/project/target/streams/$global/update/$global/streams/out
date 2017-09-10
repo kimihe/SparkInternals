@@ -6007,7 +6007,7 @@
 [debug] 	[NOT REQUIRED] org.scala-sbt#template-resolver;0.1!template-resolver.jar
 [debug] 	[NOT REQUIRED] org.scala-lang#jline;2.10.6!jline.jar
 [debug] 	[NOT REQUIRED] org.fusesource.jansi#jansi;1.4!jansi.jar
-[debug] :: resolution report :: resolve 2099ms :: artifacts dl 37ms
+[debug] :: resolution report :: resolve 2059ms :: artifacts dl 31ms
 [debug] 	report for default#for_source_codes_reading_sparkwordcount-idea-sbt-scala2_11_11-build-build;0.1-SNAPSHOT compile produced in /Users/zhouqihua/Desktop/For_Source_Codes_Reading_SparkWordCount-IDEA-sbt-Scala2_11_11/project/project/target/scala-2.10/sbt-0.13/resolution-cache/reports/default-for_source_codes_reading_sparkwordcount-idea-sbt-scala2_11_11-build-build-compile.xml
 [debug] 	report for default#for_source_codes_reading_sparkwordcount-idea-sbt-scala2_11_11-build-build;0.1-SNAPSHOT runtime produced in /Users/zhouqihua/Desktop/For_Source_Codes_Reading_SparkWordCount-IDEA-sbt-Scala2_11_11/project/project/target/scala-2.10/sbt-0.13/resolution-cache/reports/default-for_source_codes_reading_sparkwordcount-idea-sbt-scala2_11_11-build-build-runtime.xml
 [debug] 	report for default#for_source_codes_reading_sparkwordcount-idea-sbt-scala2_11_11-build-build;0.1-SNAPSHOT test produced in /Users/zhouqihua/Desktop/For_Source_Codes_Reading_SparkWordCount-IDEA-sbt-Scala2_11_11/project/project/target/scala-2.10/sbt-0.13/resolution-cache/reports/default-for_source_codes_reading_sparkwordcount-idea-sbt-scala2_11_11-build-build-test.xml
@@ -6021,5 +6021,5 @@
 [debug] 	report for default#for_source_codes_reading_sparkwordcount-idea-sbt-scala2_11_11-build-build;0.1-SNAPSHOT docs produced in /Users/zhouqihua/Desktop/For_Source_Codes_Reading_SparkWordCount-IDEA-sbt-Scala2_11_11/project/project/target/scala-2.10/sbt-0.13/resolution-cache/reports/default-for_source_codes_reading_sparkwordcount-idea-sbt-scala2_11_11-build-build-docs.xml
 [debug] 	report for default#for_source_codes_reading_sparkwordcount-idea-sbt-scala2_11_11-build-build;0.1-SNAPSHOT pom produced in /Users/zhouqihua/Desktop/For_Source_Codes_Reading_SparkWordCount-IDEA-sbt-Scala2_11_11/project/project/target/scala-2.10/sbt-0.13/resolution-cache/reports/default-for_source_codes_reading_sparkwordcount-idea-sbt-scala2_11_11-build-build-pom.xml
 [debug] 	report for default#for_source_codes_reading_sparkwordcount-idea-sbt-scala2_11_11-build-build;0.1-SNAPSHOT scala-tool produced in /Users/zhouqihua/Desktop/For_Source_Codes_Reading_SparkWordCount-IDEA-sbt-Scala2_11_11/project/project/target/scala-2.10/sbt-0.13/resolution-cache/reports/default-for_source_codes_reading_sparkwordcount-idea-sbt-scala2_11_11-build-build-scala-tool.xml
-[debug] 	resolve done (2099ms resolve - 37ms download)
+[debug] 	resolve done (2059ms resolve - 31ms download)
 [info] Done updating.

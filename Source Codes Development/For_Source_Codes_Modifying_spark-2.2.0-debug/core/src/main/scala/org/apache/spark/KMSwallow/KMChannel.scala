@@ -36,7 +36,7 @@ class KMChannel(val channelId: String,
 
   def description(): Unit = {
     println("[KMChannel Description]:      \n" +
-      s"channelId:     : ${this.channelId} \n" +
+      s"channelId      : ${this.channelId} \n" +
       s"ingress        : ${this.ingress}   \n" +
       s"egress         : ${this.egress}    \n"
     );

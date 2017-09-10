@@ -23,7 +23,7 @@ object SparkWordCount {
     //    val conf = new SparkConf().setMaster("local").setAppName("wordCount")
     val conf = new SparkConf().setAppName("SparkWordCount").setMaster("spark://zhouqihuadeMacBook-Pro.local:7077")
       .setJars(List("/Users/zhouqihua/Desktop/For_Source_Codes_Reading_SparkWordCount-IDEA-sbt-Scala2_11_11/out/artifacts/for_source_codes_reading_sparkwordcount_idea_sbt_scala2_11_11_jar/for_source_codes_reading_sparkwordcount-idea-sbt-scala2_11_11.jar"))
-      .set("spark.shuffle.compress", "true")
+      .set("spark.shuffle.compress", "false")
       .set("spark.io.compression.codec", "org.apache.spark.io.LZ4CompressionCodec")
     //.set("spark.executor.extraJavaOptions", "-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005")
     println("************************ Step0: new SparkConf() end ************************")

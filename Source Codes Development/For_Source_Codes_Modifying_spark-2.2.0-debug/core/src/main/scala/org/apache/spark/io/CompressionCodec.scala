@@ -22,8 +22,8 @@ import java.util.Locale
 
 import com.ning.compress.lzf.{LZFInputStream, LZFOutputStream}
 import net.jpountz.lz4.LZ4BlockOutputStream
+import org.apache.spark.KMSwallow.KMScalaKit
 import org.xerial.snappy.{Snappy, SnappyInputStream, SnappyOutputStream}
-
 import org.apache.spark.SparkConf
 import org.apache.spark.annotation.DeveloperApi
 import org.apache.spark.util.Utils
@@ -67,6 +67,7 @@ private[spark] object CompressionCodec {
   }
 
   def createCodec(conf: SparkConf, codecName: String): CompressionCodec = {
+    KMScalaKit.KMLogInfo(s"codecName: ${codecName}")
     val codecClass =
       shortCompressionCodecNames.getOrElse(codecName.toLowerCase(Locale.ROOT), codecName)
     val codec = try {
