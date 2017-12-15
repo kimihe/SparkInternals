@@ -4,7 +4,7 @@
 
 import java.io.File
 import org.apache.spark.{SparkConf, SparkContext}
-import org.apache.spark.KMSwallow.KMSwitch
+import org.apache.spark.KMSwallow.KMFlowHook
 
 
 object SparkWordCount {
@@ -38,7 +38,8 @@ object SparkWordCount {
     println("************************ Step0: new SparkConf() begin ************************")
     //    val conf = new SparkConf().setMaster("local").setAppName("wordCount")
     val conf = new SparkConf().setAppName("SparkWordCount").setMaster("spark://zhouqihuadeMacBook-Pro.local:7077")
-      .setJars(List("/Users/zhouqihua/Desktop/For_Source_Codes_Reading_SparkWordCount-IDEA-sbt-Scala2_11_11/out/artifacts/for_source_codes_reading_sparkwordcount_idea_sbt_scala2_11_11_jar/for_source_codes_reading_sparkwordcount-idea-sbt-scala2_11_11.jar"))
+      //.setJars(List("/Users/zhouqihua/Desktop/For_Source_Codes_Reading_SparkWordCount-IDEA-sbt-Scala2_11_11/out/artifacts/for_source_codes_reading_sparkwordcount_idea_sbt_scala2_11_11_jar/for_source_codes_reading_sparkwordcount-idea-sbt-scala2_11_11.jar"))
+      .setJars(List("/Users/zhouqihua/Desktop/For_Source_Codes_Test_SparkWordCount-IDEA-idea-Scala2_11_11/out/artifacts/For_Source_Codes_Test_SparkWordCount_IDEA_idea_Scala2_11_11_jar/For_Source_Codes_Test_SparkWordCount-IDEA-idea-Scala2_11_11.jar"))
       .set("spark.shuffle.compress", "false")
       .set("spark.io.compression.codec", "org.apache.spark.io.LZ4CompressionCodec")
       .set("spark.smartCompress", "true")
@@ -89,10 +90,14 @@ object SparkWordCount {
     println("************************ Step6: saveAsTextFile(outputFile) end ************************")
 
 
+    println("************************ Step7: Show intermediate data info begin ************************")
+    KMFlowHook.showInfo()
+    println("************************ Step7: Show intermediate data info end ************************")
 
-    println("************************ Step7: Thread Sleep for 100s ... begin ************************")
+
+    println("************************ Step8: Thread Sleep for 100s ... begin ************************")
     Thread.sleep(100000)
-    println("************************ Step7: Thread Sleep for 100s ... end ************************")
+    println("************************ Step8: Thread Sleep for 100s ... end ************************")
   }
 
   def deleteDir(dir: File): Unit = {

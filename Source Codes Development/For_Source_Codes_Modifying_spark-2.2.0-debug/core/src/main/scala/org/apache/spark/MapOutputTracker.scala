@@ -21,7 +21,7 @@ import java.io._
 import java.util.concurrent.{ConcurrentHashMap, LinkedBlockingQueue, ThreadPoolExecutor}
 import java.util.zip.{GZIPInputStream, GZIPOutputStream}
 
-import org.apache.spark.KMSwallow.KMScalaKit
+import org.apache.spark.KMSwallow.{KMFlowHook, KMScalaKit}
 
 import scala.collection.JavaConverters._
 import scala.collection.mutable.{ArrayBuffer, HashMap, HashSet, Map}
@@ -569,8 +569,14 @@ private[spark] class MapOutputTrackerMaster(conf: SparkConf,
         KMScalaKit.KMLogInfo(s"statuses.length: $len\n")
         for (i <- 0 to (len-1) ) {
           val status = statuses(i)
-          KMScalaKit.KMLogInfo(s"statuses($i).location: ${status.location}\n" +
-            s"statuses($i).getSizeForBlock: ${status.getSizeForBlock(i)}\n")
+
+          val info = s"statuses($i): ${status.KMGetBlockInfo}"
+
+//          val info: String = s"statuses($i).location: ${status.location}\n" +
+//            s"statuses($i).getSizeForBlock: ${status.getSizeForBlock(-1)}\n"  // -1 => traverse 'private[this] var compressedSizes: Array[Byte]'
+          KMScalaKit.KMLogInfo(info)
+
+          KMFlowHook.addOneInfo(info)
         }
       }
 

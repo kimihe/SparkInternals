@@ -44,6 +44,8 @@ private[spark] sealed trait MapStatus {
    * necessary for correctness, since block fetchers are allowed to skip zero-size blocks.
    */
   def getSizeForBlock(reduceId: Int): Long
+
+  def KMGetBlockInfo: String
 }
 
 
@@ -111,6 +113,21 @@ private[spark] class CompressedMapStatus(
     MapStatus.decompressSize(compressedSizes(reduceId))
   }
 
+  override def KMGetBlockInfo: String = {
+    val locationInfo: String = s"location: ${this.location}\n"
+
+    val len = compressedSizes.length
+    var sizeInfo: String = s""
+    for (i <- 0 until len) {
+      val uncompressedSizeInfo: String = s"uncompressedSizes($i): " +
+        s"${MapStatus.decompressSize(compressedSizes(i))}\n"
+      sizeInfo = sizeInfo + uncompressedSizeInfo
+    }
+
+    val blockInfo = s"KMGetBlockInfo:\n" + locationInfo + sizeInfo
+    return blockInfo
+  }
+
   override def writeExternal(out: ObjectOutput): Unit = Utils.tryOrIOException {
     loc.writeExternal(out)
     out.writeInt(compressedSizes.length)
@@ -162,6 +179,32 @@ private[spark] class HighlyCompressedMapStatus private (
         case None => avgSize
       }
     }
+  }
+
+  override def KMGetBlockInfo: String = {
+    val locationInfo: String = s"location: ${this.location}\n"
+
+    val len = numNonEmptyBlocks
+    var sizeInfo: String = s""
+    for (i <- 0 until len) {
+      assert(hugeBlockSizes != null)
+
+      var res: String = s""
+      if (emptyBlocks.contains(i)) {
+        res = s"0"
+      } else {
+        hugeBlockSizes.get(i) match {
+          case Some(size) => res = s"${MapStatus.decompressSize(size)}"
+          case None => res = s"${avgSize}"
+        }
+      }
+
+      val uncompressedSizeInfo: String = s"uncompressedSizes($i): " + s"${res}\n"
+      sizeInfo = sizeInfo + uncompressedSizeInfo
+    }
+
+    val blockInfo = s"KMGetBlockInfo:\n" + locationInfo + sizeInfo
+    return blockInfo
   }
 
   override def writeExternal(out: ObjectOutput): Unit = Utils.tryOrIOException {
