@@ -9,10 +9,10 @@ object SparkWordCount {
   def main(args: Array[String]): Unit = {
 
     //    val log: Logger = Logger.
-    val inputFile =  "./helloInput"
-    val outputFile = "./helloOutput"
+    val INPUT_HDFS =  "./INPUT_HDFS"
+    val OUTPUT_HDFS = "./OUTPUT_HDFS_WORDCOUNT"
 
-    val outputPath: File = new File(outputFile)
+    val outputPath: File = new File(OUTPUT_HDFS)
     if (outputPath.exists())
       deleteDir(outputPath)
 
@@ -21,10 +21,11 @@ object SparkWordCount {
 
       println("************************ Step0: new SparkConf() begin ************************")
     //    val conf = new SparkConf().setMaster("local").setAppName("wordCount")
-    val conf = new SparkConf().setAppName("SparkWordCount").setMaster("spark://zhouqihuadeMacBook-Pro.local:7077")
-      .setJars(List("/Users/zhouqihua/Desktop/For_Source_Codes_Reading_SparkWordCount-IDEA-sbt-Scala2_11_11/out/artifacts/for_source_codes_reading_sparkwordcount_idea_sbt_scala2_11_11_jar/for_source_codes_reading_sparkwordcount-idea-sbt-scala2_11_11.jar"))
+    val conf = new SparkConf().setAppName("SparkWordCount")
+      .setMaster("spark://zhouqihuadeMacBook-Pro.local:7077")
+      .setJars(List("/Users/zhouqihua/Desktop/For_Source_Codes_Reading_SparkWordCount-IDEA-sbt-Scala2_11_11/out/artifacts/SparkWordCount/For_Source_Codes_Reading_SparkWordCount-IDEA-sbt-Scala2_11_11.jar"))
       .set("spark.shuffle.compress", "false")
-      .set("spark.io.compression.codec", "org.apache.spark.io.LZ4CompressionCodec")
+      .set("spark.io.compression.codec", "org.apache.spark.io.LZFCompressionCodec")
     //.set("spark.executor.extraJavaOptions", "-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005")
     println("************************ Step0: new SparkConf() end ************************")
 
@@ -39,7 +40,7 @@ object SparkWordCount {
 
     println("************************ Step2: SparkContext.textFile(inputFile) begin ************************")
     // Load our input data.
-    val input =  sc.textFile(inputFile)
+    val input =  sc.textFile(INPUT_HDFS)
     println("************************ Step2: SparkContext.textFile(inputFile) end ************************")
 
 
@@ -66,7 +67,7 @@ object SparkWordCount {
 
     println("************************ Step6: saveAsTextFile(outputFile) begin ************************")
     // Save the word count back out to a text file, causing evaluation.
-    counts.saveAsTextFile(outputFile)
+    counts.saveAsTextFile(OUTPUT_HDFS)
     //    val collection = counts.collect()
     //    println(s"Result: $collection")
     println("************************ Step6: saveAsTextFile(outputFile) end ************************")
