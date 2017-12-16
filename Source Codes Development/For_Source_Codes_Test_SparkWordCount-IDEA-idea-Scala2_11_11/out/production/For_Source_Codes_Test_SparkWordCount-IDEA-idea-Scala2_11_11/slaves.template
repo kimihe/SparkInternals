@@ -17,3 +17,7 @@
 
 # A Spark Worker will be started on each of the machines listed below.
 localhost
+
+# For Cluster
+#cluster209-hadoop-slave1
+#cluster209-hadoop-slave2
