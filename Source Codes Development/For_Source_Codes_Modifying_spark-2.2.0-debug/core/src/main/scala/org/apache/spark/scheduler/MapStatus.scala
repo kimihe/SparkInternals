@@ -114,17 +114,20 @@ private[spark] class CompressedMapStatus(
   }
 
   override def KMGetBlockInfo: String = {
-    val locationInfo: String = s"location: ${this.location}\n"
-
     val len = compressedSizes.length
     var sizeInfo: String = s""
+    var totalSize: Long = 0
+
     for (i <- 0 until len) {
-      val uncompressedSizeInfo: String = s"uncompressedSizes($i): " +
-        s"${MapStatus.decompressSize(compressedSizes(i))}\n"
+      val uncompressedSize: Long = MapStatus.decompressSize(compressedSizes(i))
+      val uncompressedSizeInfo: String = s"uncompressedSizes($i): ${uncompressedSize}\n"
       sizeInfo = sizeInfo + uncompressedSizeInfo
+      totalSize = totalSize + uncompressedSize
     }
 
-    val blockInfo = s"KMGetBlockInfo:\n" + locationInfo + sizeInfo
+    val locationInfo: String = s"location: ${this.location}\n"
+    val totalSizeInfo = s"totalSize: ${totalSize}\n"
+    val blockInfo = s"KMGetBlockInfo:\n" + locationInfo + sizeInfo + totalSizeInfo
     return blockInfo
   }
 
@@ -182,28 +185,31 @@ private[spark] class HighlyCompressedMapStatus private (
   }
 
   override def KMGetBlockInfo: String = {
-    val locationInfo: String = s"location: ${this.location}\n"
-
     val len = numNonEmptyBlocks
     var sizeInfo: String = s""
+    var totalSize: Long = 0
+
     for (i <- 0 until len) {
       assert(hugeBlockSizes != null)
 
-      var res: String = s""
+      var uncompressedSize: Long = 0
       if (emptyBlocks.contains(i)) {
-        res = s"0"
+        uncompressedSize = 0
       } else {
         hugeBlockSizes.get(i) match {
-          case Some(size) => res = s"${MapStatus.decompressSize(size)}"
-          case None => res = s"${avgSize}"
+          case Some(size) => uncompressedSize = MapStatus.decompressSize(size)
+          case None => uncompressedSize = avgSize
         }
       }
 
-      val uncompressedSizeInfo: String = s"uncompressedSizes($i): " + s"${res}\n"
+      val uncompressedSizeInfo: String = s"uncompressedSizes($i): ${uncompressedSize}\n"
       sizeInfo = sizeInfo + uncompressedSizeInfo
+      totalSize = totalSize + uncompressedSize
     }
 
-    val blockInfo = s"KMGetBlockInfo:\n" + locationInfo + sizeInfo
+    val locationInfo: String = s"location: ${this.location}\n"
+    val totalSizeInfo = s"totalSize: ${totalSize}\n"
+    val blockInfo = s"KMGetBlockInfo:\n" + locationInfo + sizeInfo + totalSizeInfo
     return blockInfo
   }
 
